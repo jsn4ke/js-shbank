@@ -15,7 +15,7 @@ class TestSettings:
         assert settings.api_base_url == "https://www.bosc.cn/apiQry"
         assert settings.timeout == 30
         assert settings.max_retries == 3
-        assert settings.page_size == 10
+        assert settings.page_size == 50
         assert settings.data_dir == Path("data")
         assert settings.api_endpoint == "/apiPCQry/qryPcFinanceProductZh"
 
