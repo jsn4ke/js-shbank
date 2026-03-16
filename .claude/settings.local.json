@@ -10,7 +10,14 @@
       "Bash(./venv/Scripts/python:*)",
       "Bash(./venv/Scripts/pip install:*)",
       "Bash(./venv/Scripts/ruff check:*)",
-      "Bash(./venv/Scripts/pytest:*)"
+      "Bash(./venv/Scripts/pytest:*)",
+      "Bash(rm:*)",
+      "Bash(find .:*)",
+      "Bash(venv/Scripts/pytest:*)",
+      "Bash(DATA_DIR=output venv/Scripts/python:*)",
+      "Bash(venv/Scripts/python:*)",
+      "Bash(../venv/Scripts/python:*)",
+      "Bash(find output:*)"
     ]
   }
 }
