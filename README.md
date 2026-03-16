@@ -162,6 +162,91 @@ products.csv
 
 ## 版本
 
+**当前版本**: 0.0.2
+
+详见 [doc/v0.0.2-plan.md](doc/v0.0.2-plan.md) 和 [memory/project-progress.md](memory/project-progress.md)
+
+---
+
+## 作为库使用
+
+BSH 可以作为一个 Python 库被其他项目引用。
+
+### 安装
+
+```bash
+pip install bsh
+```
+
+### 基本使用
+
+```python
+from bsh import ApiClient, Parser, CsvRepository, ProductModel, Settings
+from bsh.config import get_settings
+
+# 创建配置
+settings = get_settings()
+
+# 获取产品数据
+client = ApiClient(settings)
+parser = Parser()
+
+products = []
+for page_data in client.fetch_all_products():
+    products.extend(parser.parse_products(page_data))
+
+# 保存到 CSV
+repository = CsvRepository(settings)
+repository.save_batch(products)
+```
+
+### 使用数据模型
+
+```python
+from bsh.models import ProductModel
+
+# 创建产品
+product = ProductModel(
+    prd_code="B001",
+    prd_name="示例产品",
+    rate="3.5",
+    risk_level=2,
+    curr_type="USD",
+)
+
+# 访问字段
+print(product.prd_name)
+print(product.rate)
+print(product.detail_page_url)
+```
+
+---
+
+## Web 查看界面
+
+BSH 提供基于 Streamlit 的 Web 查看界面。
+
+### 启动 Web 界面
+
+```bash
+# 方法 1: 使用命令行工具
+bsh-web
+
+# 方法 2: 直接运行 Streamlit
+streamlit run bsh.web.app
+```
+
+### 功能特性
+
+- 📊 **数据统计面板**: 风险等级分布、币种统计
+- 🔍 **多条件筛选**: 按产品代码、名称、风险等级、币种筛选
+- 📋 **产品详情视图**: 选择产品查看完整信息
+- 🔗 **产品链接**: 自动生成详情页 URL
+
+---
+
+
+
 当前版本: **0.0.1**
 
 详见 [doc/v0.0.1-plan.md](doc/v0.0.1-plan.md)
