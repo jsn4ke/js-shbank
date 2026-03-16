@@ -27,6 +27,10 @@ dependencies = [
     "python-dotenv>=1.0.0",
 ]
 
+[project.scripts]
+bsh-fetch = "bsh.cli:fetch_command"
+bsh-web = "bsh.cli:web_command"
+
 [project.optional-dependencies]
 dev = [
     "pytest>=7.4.0",
@@ -34,6 +38,9 @@ dev = [
     "pytest-mock>=3.11.0",
     "ruff>=0.1.0",
     "mypy>=1.5.0",
+]
+web = [
+    "streamlit>=1.29.0",
 ]
 
 [tool.setuptools.packages.find]

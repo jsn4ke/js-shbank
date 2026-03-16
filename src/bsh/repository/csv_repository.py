@@ -32,10 +32,19 @@ class CsvRepository(BaseRepository):  # type: ignore[abstract]
         """初始化 CSV Repository
 
         Args:
-            settings: 配置对象
+            settings: 配置对象（data_dir 可以是完整文件路径）
         """
         self.settings = settings
-        self.file_path = os.path.join(str(self.settings.data_dir), "products.csv")
+        data_dir = str(settings.data_dir)
+
+        # 如果 data_dir 是完整文件路径（包含 .csv），直接使用
+        # 否则拼接目录和文件名
+        if data_dir.endswith(".csv"):
+            self.file_path = data_dir
+        else:
+            # 确保目录存在
+            os.makedirs(data_dir, exist_ok=True)
+            self.file_path = os.path.join(data_dir, "products.csv")
 
     def _load(self) -> dict[str, list[str]]:
         """加载 CSV 文件内容
