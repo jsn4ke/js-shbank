@@ -15,7 +15,7 @@
 | 3 | 数据模型定义 | feat/data-models | ✅ 完成 | ProductModel 和 APIResponse |
 | 4 | API 客户端 | feat/api-client | ✅ 完成 | ApiClient 类，请求参数构建 |
 | 5 | 数据解析器 | feat/data-parser | ✅ 完成 | Parser 类，字段映射 |
-| 6 | 年化计算器 | feat/yield-calculator | ⏳ 待开发 | YieldCalculator 类 |
+| 6 | 年化计算器 | feat/yield-calculator | ✅ 完成 | YieldCalculator 类 |
 | 7 | Repository 接口设计 | feat/repository-interface | ⏳ 待开发 | BaseRepository, RepositoryFactory |
 | 8 | CSV Repository 实现 | feat/csv-repository | ⏳ 待开发 | CsvRepository 类 |
 | 9 | 主流程集成 | feat/main-integration | ⏳ 待开发 | main.py 主入口 |
