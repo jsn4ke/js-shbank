@@ -14,7 +14,7 @@
 | 2 | 配置管理模块 | feat/config-module | ✅ 完成 | Settings 类实现 |
 | 3 | 数据模型定义 | feat/data-models | ✅ 完成 | ProductModel 和 APIResponse |
 | 4 | API 客户端 | feat/api-client | ✅ 完成 | ApiClient 类，请求参数构建 |
-| 5 | 数据解析器 | feat/data-parser | ⏳ 待开发 | Parser 类，字段映射 |
+| 5 | 数据解析器 | feat/data-parser | ✅ 完成 | Parser 类，字段映射 |
 | 6 | 年化计算器 | feat/yield-calculator | ⏳ 待开发 | YieldCalculator 类 |
 | 7 | Repository 接口设计 | feat/repository-interface | ⏳ 待开发 | BaseRepository, RepositoryFactory |
 | 8 | CSV Repository 实现 | feat/csv-repository | ⏳ 待开发 | CsvRepository 类 |
