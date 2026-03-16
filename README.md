@@ -14,7 +14,7 @@
 
 **当前版本**: 0.0.2
 
-详见 [doc/v0.0.2-plan.md](doc/v0.0.2-plan.md) 和 [memory/project-progress.md](memory/project-progress.md)
+详见 [doc/v0.0.2-plan.md](doc/v0.0.2-plan.md) 和 [doc/v0.0.3-plan.md](doc/v0.0.3-plan.md)
 
 ---
 
@@ -39,11 +39,12 @@ settings = get_settings()
 
 # 获取产品数据
 client = ApiClient(settings)
-parser = Parser()
 
-products = []
-for page_data in client.fetch_all_products():
-    products.extend(parser.parse_products(page_data))
+# fetch_all_products 返回所有产品记录
+all_records = client.fetch_all_products()
+
+# 解析每条产品记录
+products = [Parser.parse_product(record) for record in all_records]
 
 # 保存到 CSV
 repository = CsvRepository(settings)
@@ -199,39 +200,56 @@ python -m src.main
 ```
 bsh/
 ├── src/
-│   ├── config/              # 配置管理
-│   ├── settings.py     # Settings 类，支持环境变量
-│   ├── models/              # Pydantic 数据模型
-│   │   └── product.py      # ProductModel, APIResponse
-│   ├── repository/          # 数据存储抽象层
-│   │   ├── base.py         # BaseRepository 接口
-│   │   ├── csv_repository.py # CsvRepository 实现
-│   │   └── factory.py      # RepositoryFactory 工厂
-│   ├── scraper/             # API 客户端和解析
-│   │   ├── api_client.py   # ApiClient 类
-│   │   └── parser.py      # Parser 类
-│   ├── calculator/          # 收益率计算
-│   │   └── yield_calculator.py
-│   ├── cli.py                # 命令行入口
-│   └── main.py             # 主入口
-│   └── web/                 # Streamlit Web 应用
-│       ├── __init__.py
-│       └── app.py
+│   └── bsh/
+│       ├── config/              # 配置管理
+│       │   ├── __init__.py
+│       │   └── settings.py    # Settings 类，支持环境变量
+│       ├── models/              # Pydantic 数据模型
+│       │   ├── __init__.py
+│       │   └── product.py     # ProductModel, APIResponse
+│       ├── repository/          # 数据存储抽象层
+│       │   ├── __init__.py
+│       │   ├── base.py        # BaseRepository 接口
+│       │   ├── csv_repository.py # CsvRepository 实现
+│       │   └── factory.py     # RepositoryFactory 工厂
+│       ├── scraper/             # API 客户端和解析
+│       │   ├── __init__.py
+│       │   ├── api_client.py   # ApiClient 类
+│       │   └── parser.py      # Parser 类
+│       ├── calculator/          # 收益率计算
+│       │   ├── __init__.py
+│       │   └── yield_calculator.py
+│       ├── web/                # Streamlit Web 应用
+│       │   ├── __init__.py
+│       │   └── app.py
+│       ├── cli.py              # 命令行入口
+│       ├── main.py             # 主入口
+│       └── __init__.py         # 包导出
 ├── tests/                  # 测试
 │   ├── test_csv_repository.py
 │   ├── test_main_integration.py
 │   ├── test_parser.py
 │   ├── test_product.py
+│   ├── test_product_url.py
 │   ├── test_repository.py
 │   ├── test_settings.py
-│   └── test_yield_calculator.py
+│   ├── test_yield_calculator.py
 │   ├── test_exports.py         # 模块导出测试
 │   ├── test_cli.py            # CLI 命令测试
 │   └── test_web.py             # Web 模块测试
 ├── data/                   # 数据存储目录
-│   ├── output/                 # 输出文件目录
-│   └── memory/              # 开发记录和计划
-└── doc/                    # 文档
+│   └── products.csv
+├── doc/                    # 文档
+│   ├── v0.0.2-plan.md
+│   ├── v0.0.3-plan.md
+│   └── url-research.md
+├── memory/                 # 开发记录和计划
+│   └── project-progress.md
+├── pyproject.toml
+├── requirements.txt
+├── MANIFEST.in
+├── LICENSE
+└── README.md
 
 ---
 
@@ -322,8 +340,6 @@ CsvRepository (数据存储)
 | `pfirst_amt` | 起售金额（元） |
 | `sold_out` | 是否售罄 (0=否 1=是) |
 | `prd_labels` | 产品标签 (@!@分隔) |
-| `prd_id` | 产品 ID（用于生成详情页 URL） |
-| `prd_category` | 产品类别（用于生成详情页 URL） |
 | `detail_page_url` | 产品详情页 URL |
 | `fetched_at` | 抓取时间 |
 
