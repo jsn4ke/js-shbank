@@ -30,18 +30,21 @@ def fetch_command() -> None:
     print(f"正在获取产品数据 (每页 {args.page_size} 条)...")
 
     client = ApiClient(settings)
-    parser_obj = Parser()
     repository = RepositoryFactory.create_repository(settings, "csv", filepath=args.output)
 
     total_fetched = 0
 
     try:
-        for page_data in client.fetch_all_products():
-            products = parser_obj.parse_products(page_data)
-            if products:
-                repository.save_batch(products)
-                total_fetched += len(products)
-                print(f"已获取 {total_fetched} 条产品数据...")
+        # 获取所有产品记录
+        all_records = client.fetch_all_products()
+
+        # 解析每条产品记录
+        products = [Parser.parse_product(record) for record in all_records]
+
+        if products:
+            repository.save_batch(products)
+            total_fetched = len(products)
+            print(f"已获取 {total_fetched} 条产品数据...")
 
         print(f"\n完成！共获取 {total_fetched} 条产品数据")
         print(f"数据已保存到: {args.output}")

@@ -62,8 +62,9 @@ class CsvRepository(BaseRepository):  # type: ignore[abstract]
             for row in reader:
                 code = row.get("prd_code", "")
                 if code:
-                    data[code] = []
-                data[code].append(row)
+                    if code not in data:
+                        data[code] = []
+                    data[code].append(row)
         return data
 
     def _save(self, data: dict[str, list[str]]) -> None:
@@ -96,8 +97,10 @@ class CsvRepository(BaseRepository):  # type: ignore[abstract]
 
         Args:
             products: 产品模型对象列表
+
+        注意：此方法会清空旧数据并写入新数据
         """
-        data = self._load()
+        data: dict[str, list[str]] = {}
         for product in products:
             code = product.prd_code
             if code not in data:
