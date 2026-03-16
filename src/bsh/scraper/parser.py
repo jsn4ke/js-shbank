@@ -96,6 +96,30 @@ class Parser:
         return f"{amount}元"
 
     @staticmethod
+    def build_detail_url(prd_id: str | None, prd_category: str | None = None) -> str | None:
+        """构建产品详情页 URL
+
+        Args:
+            prd_id: 产品 ID
+            prd_category: 产品类别（可选）
+
+        Returns:
+            str | None: 产品详情页 URL
+
+        示例:
+            >>> Parser.build_detail_url("123456")
+            "https://www.bosc.cn/zh/gryw/tzlc/lc/zxcpxx/?prdId=123456"
+        """
+        if not prd_id:
+            return None
+
+        base_url = "https://www.bosc.cn/zh/gryw/tzlc/lc/zxcpxx/"
+        params = f"?prdId={prd_id}"
+        if prd_category:
+            params += f"&prdCategory={prd_category}"
+        return base_url + params
+
+    @staticmethod
     def _camel_to_snake(name: str) -> str:
         """驼峰转下划线
 
@@ -124,6 +148,16 @@ class Parser:
         for key, value in record.items():
             snake_key = Parser._camel_to_snake(key)
             converted[snake_key] = value
+
+        # 生成详情页 URL
+        # 使用 prdCode 作为 prd_id（如果没有 prdId 字段）
+        prd_id = record.get("prdId") or record.get("prdCode")
+        prd_category = record.get("prdCategory")
+        if prd_id:
+            converted["detail_page_url"] = Parser.build_detail_url(prd_id, prd_category)
+            converted["prd_id"] = prd_id
+            if prd_category:
+                converted["prd_category"] = prd_category
 
         # 使用 ProductModel 解析，允许额外字段
         return ProductModel.model_validate(converted)

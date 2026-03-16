@@ -12,6 +12,9 @@ class CsvRepository(BaseRepository):  # type: ignore[abstract]
     CSV_HEADER = [
         "prd_code",
         "prd_name",
+        "prd_id",
+        "prd_category",
+        "detail_page_url",
         "rate",
         "rate_script",
         "week_year_rate",

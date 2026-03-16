@@ -31,6 +31,11 @@ class ProductModel(BaseModel):
     sold_out: int | None = Field(None, description="是否售罄 0=否 1=是")
     prd_labels: str | None = Field(None, description="产品标签 @!@分隔")
 
+    # URL 相关
+    prd_id: str | None = Field(None, description="产品 ID（用于生成详情页 URL）")
+    prd_category: str | None = Field(None, description="产品类别（用于生成详情页 URL）")
+    detail_page_url: str | None = Field(default=None, description="产品详情页 URL")
+
     # 元数据
     fetched_at: datetime.datetime = Field(
         default_factory=datetime.datetime.now,
