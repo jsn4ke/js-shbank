@@ -17,7 +17,7 @@
 | 5 | 数据解析器 | feat/data-parser | ✅ 完成 | Parser 类，字段映射 |
 | 6 | 年化计算器 | feat/yield-calculator | ✅ 完成 | YieldCalculator 类 |
 | 7 | Repository 接口设计 | feat/repository-interface | ✅ 完成 | BaseRepository, RepositoryFactory |
-| 8 | CSV Repository 实现 | feat/csv-repository | ⏳ 待开发 | CsvRepository 类 |
+| 8 | CSV Repository 实现 | feat/csv-repository | ✅ 完成 | CsvRepository 类 |
 | 9 | 主流程集成 | feat/main-integration | ⏳ 待开发 | main.py 主入口 |
 | 10 | 完整测试 | test/integration-tests | ⏳ 待开发 | 单元测试 + 集成测试 |
 | 11 | 文档完善 | docs/project-docs | ⏳ 待开发 | README, 代码注释 |
