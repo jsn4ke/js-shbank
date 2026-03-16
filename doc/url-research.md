@@ -14,29 +14,52 @@
 
 产品列表页面：https://www.bosc.cn/zh/gryw/tzlc/lc/zxcpxx/
 
-## 预期 URL 模式
+## 实际 URL 模式
 
-基于常规银行产品页面的 URL 结构，预期模式如下：
+根据实际访问验证，正确的产品详情页 URL 格式如下：
 
-### 模式 A：查询参数方式
 ```
-https://www.bosc.cn/zh/gryw/tzlc/lc/zxcpxx/?prdId={prd_id}
-```
-
-### 模式 B：路径方式
-```
-https://www.bosc.cn/zh/products/{prd_id}
+https://ebanks.bankofshanghai.com/pweb/OpenDetailRule.do?PortalFlag=finance&PrdCode={产品代码}&_locale=zh_CN
 ```
 
-## 待确定参数
+### 参数说明
 
-- [x] prdId: 产品 ID
-- [ ] prdCategory: 产品类别
-- [ ] 其他可能需要的参数
+| 参数 | 说明 | 示例 |
+|------|------|------|
+| PortalFlag | 门户标识 | finance |
+| PrdCode | 产品代码 | WPXK25M0202A |
+| _locale | 语言设置 | zh_CN |
+
+### 完整示例
+
+```
+https://ebanks.bankofshanghai.com/pweb/OpenDetailRule.do?PortalFlag=finance&PrdCode=WPXK25M0202A&_locale=zh_CN
+```
+
+## URL 生成规则
+
+- **基础 URL**: `https://ebanks.bankofshanghai.com/pweb/OpenDetailRule.do`
+- **必需参数**:
+  - `PortalFlag=finance`
+  - `PrdCode={prdCode}`
+  - `_locale=zh_CN`
+
+## 代码实现
+
+```python
+@staticmethod
+def build_detail_url(prd_code: str | None) -> str | None:
+    """构建产品详情页 URL"""
+    if not prd_code:
+        return None
+
+    base_url = "https://ebanks.bankofshanghai.com/pweb/OpenDetailRule.do"
+    params = f"?PortalFlag=finance&PrdCode={prd_code}&_locale=zh_CN"
+    return base_url + params
+```
 
 ## 研究结论
 
-需要访问实际页面验证 URL 模式。
-
-**注意**: 由于无法直接访问上海银行官网，本研究基于常见模式推断。
-实际使用时需要验证 URL 有效性。
+✅ URL 模式已确认并验证。
+✅ 使用 `prdCode` 字段作为 URL 参数。
+✅ 产品详情页可正常访问。

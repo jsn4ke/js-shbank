@@ -96,27 +96,24 @@ class Parser:
         return f"{amount}元"
 
     @staticmethod
-    def build_detail_url(prd_id: str | None, prd_category: str | None = None) -> str | None:
+    def build_detail_url(prd_code: str | None) -> str | None:
         """构建产品详情页 URL
 
         Args:
-            prd_id: 产品 ID
-            prd_category: 产品类别（可选）
+            prd_code: 产品代码
 
         Returns:
             str | None: 产品详情页 URL
 
         示例:
-            >>> Parser.build_detail_url("123456")
-            "https://www.bosc.cn/zh/gryw/tzlc/lc/zxcpxx/?prdId=123456"
+            >>> Parser.build_detail_url("WPXK25M0202A")
+            "https://ebanks.bankofshanghai.com/pweb/OpenDetailRule.do?PortalFlag=finance&PrdCode=WPXK25M0202A&_locale=zh_CN"
         """
-        if not prd_id:
+        if not prd_code:
             return None
 
-        base_url = "https://www.bosc.cn/zh/gryw/tzlc/lc/zxcpxx/"
-        params = f"?prdId={prd_id}"
-        if prd_category:
-            params += f"&prdCategory={prd_category}"
+        base_url = "https://ebanks.bankofshanghai.com/pweb/OpenDetailRule.do"
+        params = f"?PortalFlag=finance&PrdCode={prd_code}&_locale=zh_CN"
         return base_url + params
 
     @staticmethod
@@ -150,14 +147,10 @@ class Parser:
             converted[snake_key] = value
 
         # 生成详情页 URL
-        # 使用 prdCode 作为 prd_id（如果没有 prdId 字段）
-        prd_id = record.get("prdId") or record.get("prdCode")
-        prd_category = record.get("prdCategory")
-        if prd_id:
-            converted["detail_page_url"] = Parser.build_detail_url(prd_id, prd_category)
-            converted["prd_id"] = prd_id
-            if prd_category:
-                converted["prd_category"] = prd_category
+        # 使用 prdCode 生成详情页 URL
+        prd_code = record.get("prdCode")
+        if prd_code:
+            converted["detail_page_url"] = Parser.build_detail_url(prd_code)
 
         # 使用 ProductModel 解析，允许额外字段
         return ProductModel.model_validate(converted)
