@@ -1,13 +1,14 @@
 # BSH - 上海银行理财数据爬取
 
-爬取上海银行理财页面数据，提取产品信息并计算各种年化收益率。
+爬取上海银行理财产品数据，提取产品信息并存储为 CSV 文件。
 
 ## 功能特性
 
-- 爬取上海银行理财产品数据
-- 提取产品基本信息（名称、收益率、风险等级等）
-- 计算年化收益率（净值转年化）
-- 数据存储为 CSV（支持扩展其他存储方式）
+- 从上海银行 API 获取真实理财产品数据
+- 提取产品基本信息（名称、收益率、风险等级、起售金额等）
+- 支持分页获取全部产品
+- 数据存储为 CSV 格式（基于 Repository Pattern，可扩展其他存储方式）
+- 完整的单元测试和集成测试（95% 测试覆盖率）
 
 ## 安装
 
@@ -16,6 +17,7 @@
 ```bash
 python -m venv venv
 venv\Scripts\activate  # Windows
+source venv/bin/activate  # Linux/Mac
 ```
 
 ### 安装依赖
@@ -26,27 +28,56 @@ pip install -r requirements.txt
 
 ## 使用方法
 
+### 获取产品数据
+
 ```bash
-python src/main.py
+python -m src.main
 ```
 
-数据将保存到 `data/products.csv`。
+数据将保存到 `data/products.csv`（或 `output/products.csv` 取决于配置）。
+
+### 环境变量配置
+
+| 变量名 | 说明 | 默认值 |
+|---------|------|--------|
+| `API_BASE_URL` | API 基础 URL | `https://www.bosc.cn/apiQry` |
+| `API_ENDPOINT` | API 端点 | `/apiPCQry/qryPcFinanceProductZh` |
+| `TIMEOUT` | 请求超时时间（秒） | `30` |
+| `MAX_RETRIES` | 最大重试次数 | `3` |
+| `PAGE_SIZE` | 分页大小 | `50` |
+| `DATA_DIR` | 数据存储目录 | `data` |
 
 ## 项目结构
 
 ```
 bsh/
 ├── src/
-│   ├── config/          # 配置管理
-│   ├── models/          # Pydantic 数据模型
-│   ├── repository/      # 数据存储抽象层
-│   ├── scraper/         # API 客户端和解析
-│   ├── calculator/      # 年化计算
-│   └── main.py          # 主入口
-├── tests/               # 测试
-├── data/                # 数据存储
-├── doc/                 # 文档和计划
-└── pyproject.toml       # 项目配置
+│   ├── config/              # 配置管理
+│   │   └── settings.py     # Settings 类，支持环境变量
+│   ├── models/              # Pydantic 数据模型
+│   │   └── product.py      # ProductModel, APIResponse
+│   ├── repository/          # 数据存储抽象层
+│   │   ├── base.py         # BaseRepository 接口
+│   │   ├── csv_repository.py # CsvRepository 实现
+│   │   └── factory.py      # RepositoryFactory 工厂
+│   ├── scraper/             # API 客户端和解析
+│   │   ├── api_client.py   # ApiClient 类
+│   │   └── parser.py      # Parser 类
+│   ├── calculator/          # 年化计算
+│   │   └── yield_calculator.py
+│   └── main.py             # 主入口
+├── tests/                  # 测试
+│   ├── test_csv_repository.py
+│   ├── test_main_integration.py
+│   ├── test_parser.py
+│   ├── test_product.py
+│   ├── test_repository.py
+│   ├── test_settings.py
+│   └── test_yield_calculator.py
+├── data/                   # 数据存储目录
+├── output/                 # 输出文件目录
+├── memory/                 # 开发记录和计划
+└── README.md               # 本文件
 ```
 
 ## 开发
@@ -55,6 +86,12 @@ bsh/
 
 ```bash
 pytest
+```
+
+### 查看测试覆盖率
+
+```bash
+pytest --cov=src --cov-report=html
 ```
 
 ### 代码格式化
@@ -70,11 +107,68 @@ ruff check .
 mypy src/
 ```
 
+## 架构设计
+
+### Repository Pattern
+
+项目使用 Repository Pattern 实现数据存储抽象：
+
+- `BaseRepository`: 定义统一的数据访问接口
+- `CsvRepository`: CSV 文件存储实现
+- `RepositoryFactory`: 根据配置创建对应的 Repository 实例
+
+### 数据流程
+
+```
+ApiClient (API 请求)
+    ↓
+Parser (数据解析)
+    ↓
+ProductModel (数据模型)
+    ↓
+CsvRepository (数据存储)
+    ↓
+products.csv
+```
+
+## API 信息
+
+- **API 基础 URL**: `https://www.bosc.cn/apiQry`
+- **产品查询端点**: `/apiPCQry/qryPcFinanceProductZh`
+- **请求方式**: POST
+- **请求格式**: JSON
+- **响应格式**: JSON
+
+## 数据字段说明
+
+| 字段 | 说明 |
+|------|------|
+| `prd_code` | 产品代码 |
+| `prd_name` | 产品名称 |
+| `rate` | 年化收益率 |
+| `rate_script` | 收益率备注 |
+| `week_year_rate` | 近七日年化 |
+| `month_year_rate` | 近一月年化 |
+| `three_month_year_rate` | 近三月年化 |
+| `half_year_year_rate` | 近半年年化 |
+| `unit_rate` | 单位净值 |
+| `estab_ratio` | 成立以来净值 |
+| `risk_level` | 风险等级 (1-5) |
+| `curr_type` | 币种 (CNY/USD) |
+| `pfirst_amt` | 起售金额（元） |
+| `sold_out` | 是否售罄 (0=否 1=是) |
+| `prd_labels` | 产品标签 (@!@分隔) |
+| `fetched_at` | 抓取时间 |
+
 ## 版本
 
-当前版本: 0.0.1
+当前版本: **0.0.1**
 
 详见 [doc/v0.0.1-plan.md](doc/v0.0.1-plan.md)
+
+## 开发进度
+
+详见 [memory/project-progress.md](memory/project-progress.md)
 
 ## License
 
