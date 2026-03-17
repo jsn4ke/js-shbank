@@ -1,6 +1,6 @@
 """BSH - 上海银行理财数据爬取库"""
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 from js_shbank.models import ProductModel
 from js_shbank.config import Settings
