@@ -29,6 +29,12 @@ def fetch_command() -> None:
 
     print(f"正在获取产品数据 (每页 {args.page_size} 条)...")
 
+    # 确保输出目录存在
+    import os
+    output_dir = os.path.dirname(args.output)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
+
     client = ApiClient(settings)
     repository = RepositoryFactory.create_repository(settings, "csv", filepath=args.output)
 
@@ -62,7 +68,7 @@ def web_command() -> None:
     """
     print("启动 BSH Web 查看界面...")
     # 使用实际的 Python 文件路径
-    subprocess.run([sys.executable, "-m", "streamlit", "run", "src/bsh/web/app.py"])
+    subprocess.run([sys.executable, "-m", "streamlit", "run", "src/js_shbank/web/app.py"])
 
 
 if __name__ == "__main__":
