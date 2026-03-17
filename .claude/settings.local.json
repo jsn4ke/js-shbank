@@ -30,7 +30,10 @@
       "Bash(venv/Scripts/twine upload:*)",
       "Bash(pip search:*)",
       "Bash(pip install:*)",
-      "Bash(venv/Scripts/pip show:*)"
+      "Bash(venv/Scripts/pip show:*)",
+      "Bash(venv/Scripts/shbank-fetch.exe:*)",
+      "Bash(find tests:*)",
+      "Bash(grep:*)"
     ]
   }
 }

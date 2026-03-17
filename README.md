@@ -25,14 +25,14 @@ BSH 可以作为一个 Python 库被其他项目引用。
 ### 安装
 
 ```bash
-pip install bsh
+pip install js-shbank
 ```
 
 ### 基本使用
 
 ```python
-from bsh import ApiClient, Parser, CsvRepository, ProductModel, Settings
-from bsh.config import get_settings
+from js_shbank import ApiClient, Parser, CsvRepository, ProductModel, Settings
+from js_shbank.config import Settings
 
 # 创建配置
 settings = get_settings()
@@ -54,7 +54,7 @@ repository.save_batch(products)
 ### 使用数据模型
 
 ```python
-from bsh.models import ProductModel
+from js_shbank.models import ProductModel
 
 # 创建产品
 product = ProductModel(
@@ -88,7 +88,7 @@ venv\Scripts\activate  # Windows
 source venv/bin/activate  # Linux/Mac
 
 # 启动 Web 界面
-bsh-web
+shbank-web
 ```
 
 #### 方法二：直接运行 Streamlit
@@ -118,7 +118,7 @@ streamlit run bsh.web.app
 需要先获取产品数据：
 
 ```bash
-bsh-fetch
+shbank-fetch
 ```
 
 这会创建 `data/products.csv` 文件，Streamlit Web 界面会自动读取该文件。
@@ -133,7 +133,7 @@ bsh-fetch
 
 ```bash
 # 方式 1：指定输出路径获取数据
-bsh-fetch -o data/products.csv
+shbank-fetch -o data/products.csv
 
 # 方式 2：检查默认输出目录
 ls data/products.csv

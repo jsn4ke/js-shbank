@@ -2,8 +2,8 @@
 import pandas as pd
 import streamlit as st
 
-from bsh.repository import RepositoryFactory
-from bsh.models.product import ProductModel
+from js_shbank.repository import RepositoryFactory
+from js_shbank.models.product import ProductModel
 
 
 @st.cache_data
@@ -27,7 +27,7 @@ st.markdown("---")
 products = load_products()
 
 if not products:
-    st.warning("暂无产品数据，请先运行 `bsh-fetch` 获取数据")
+    st.warning("暂无产品数据，请先运行 `shbank-fetch` 获取数据")
     st.stop()
 
 # 数据转换为 DataFrame

@@ -1,6 +1,6 @@
 """测试产品 URL 功能"""
 import pytest
-from bsh.models.product import ProductModel
+from js_shbank.models.product import ProductModel
 
 
 class TestProductURLFields:
@@ -29,7 +29,7 @@ class TestURLGeneration:
 
     def test_build_detail_url_with_prd_code(self):
         """测试用 prd_code 生成 URL"""
-        from bsh.scraper import Parser
+        from js_shbank.scraper import Parser
 
         url = Parser.build_detail_url("WPXK25M0202A")
         expected = "https://ebanks.bankofshanghai.com/pweb/OpenDetailRule.do?PortalFlag=finance&PrdCode=WPXK25M0202A&_locale=zh_CN"
@@ -37,7 +37,7 @@ class TestURLGeneration:
 
     def test_build_detail_url_with_none_prd_code(self):
         """测试 prd_code 为 None 时返回 None"""
-        from bsh.scraper import Parser
+        from js_shbank.scraper import Parser
 
         url = Parser.build_detail_url(None)
         assert url is None

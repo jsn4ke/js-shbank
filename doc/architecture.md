@@ -160,7 +160,7 @@ src/bsh/
 ### 获取数据流程
 
 ```
-用户运行 bsh-fetch
+用户运行 shbank-fetch
     │
     ▼
 1. CLI 获取配置
@@ -197,7 +197,7 @@ src/bsh/
 ### Web 查看流程
 
 ```
-用户运行 bsh-web
+用户运行 shbank-web
     │
     ▼
 1. Streamlit 启动

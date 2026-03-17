@@ -1,7 +1,7 @@
 """测试数据模型"""
 from datetime import datetime
 
-from bsh.models.product import APIResponse, ProductModel
+from js_shbank.models.product import APIResponse, ProductModel
 
 
 class TestProductModel:

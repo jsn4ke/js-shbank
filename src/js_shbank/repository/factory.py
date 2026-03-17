@@ -2,8 +2,8 @@
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from bsh.config.settings import Settings
-    from bsh.repository.base import BaseRepository
+    from js_shbank.config.settings import Settings
+    from js_shbank.repository.base import BaseRepository
 
 
 class RepositoryFactory:
@@ -27,7 +27,7 @@ class RepositoryFactory:
         Raises:
             ValueError: 如果 repo_type 不支持
         """
-        from bsh.repository.csv_repository import CsvRepository
+        from js_shbank.repository.csv_repository import CsvRepository
 
         # 根据类型创建对应的 Repository
         if repo_type == "csv":

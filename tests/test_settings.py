@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from bsh.config.settings import Settings, get_settings
+from js_shbank.config.settings import Settings, get_settings
 
 
 class TestSettings:

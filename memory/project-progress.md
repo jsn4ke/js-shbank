@@ -259,32 +259,32 @@ test: 添加 repository 测试
 ### Task 1.1: 更新 src/__init__.py 导出
 **文件**: `src/__init__.py`
 **内容**: 添加 `__version__` 和 `__all__` 导出列表
-**验收**: 可以 `import bsh; bsh.__version__` 获取版本号
+**验收**: 可以 `import js_shbank; bsh.__version__` 获取版本号
 
 ### Task 1.2: 更新 src/models/__init__.py 导出
 **文件**: `src/models/__init__.py`
 **内容**: 添加 `__all__ = ["ProductModel"]`
-**验收**: `from bsh.models import ProductModel` 成功
+**验收**: `from js_shbank.models import ProductModel` 成功
 
 ### Task 1.3: 更新 src/config/__init__.py 导出
 **文件**: `src/config/__init__.py`
 **内容**: 添加 `__all__ = ["Settings"]`
-**验收**: `from bsh.config import Settings` 成功
+**验收**: `from js_shbank.config import Settings` 成功
 
 ### Task 1.4: 更新 src/scraper/__init__.py 导出
 **文件**: `src/scraper/__init__.py`
 **内容**: 添加 `__all__ = ["ApiClient", "Parser"]`
-**验收**: `from bsh.scraper import ApiClient, Parser` 成功
+**验收**: `from js_shbank.scraper import ApiClient, Parser` 成功
 
 ### Task 1.5: 更新 src/repository/__init__.py 导出
 **文件**: `src/repository/__init__.py`
 **内容**: 添加 `__all__ = ["BaseRepository", "CsvRepository", "RepositoryFactory"]`
-**验收**: `from bsh.repository import CsvRepository, RepositoryFactory` 成功
+**验收**: `from js_shbank.repository import CsvRepository, RepositoryFactory` 成功
 
 ### Task 1.6: 更新 src/calculator/__init__.py 导出
 **文件**: `src/calculator/__init__.py`
 **内容**: 添加 `__all__ = ["YieldCalculator"]`
-**验收**: `from bsh.calculator import YieldCalculator` 成功
+**验收**: `from js_shbank.calculator import YieldCalculator` 成功
 
 ### Task 1.7: 测试模块导出
 **文件**: `tests/test_exports.py` (新建)
@@ -324,7 +324,7 @@ test: 添加 repository 测试
 ### Task 3.2: 更新 src/__init__.py 版本号
 **文件**: `src/__init__.py`
 **内容**: 将 `__version__` 设置为 "0.0.2"
-**验收**: `import bsh; print(bsh.__version__)` 输出 0.0.2
+**验收**: `import js_shbank; print(bsh.__version__)` 输出 0.0.2
 
 ### Task 4.1: 研究 URL 生成规则
 **文件**: `doc/url-research.md` (新建)
@@ -374,7 +374,7 @@ test: 添加 repository 测试
 ### Task 6.2: 创建 src/web/__init__.py
 **文件**: `src/web/__init__.py` (新建)
 **内容**: 导出 main 函数
-**验收**: `from bsh.web import main` 成功
+**验收**: `from js_shbank.web import main` 成功
 
 ### Task 6.3: 创建 src/web/app.py 基础结构
 **文件**: `src/web/app.py` (新建)

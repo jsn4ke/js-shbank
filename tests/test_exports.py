@@ -3,16 +3,16 @@ import importlib
 
 
 def test_bsh_module_imports():
-    """测试可以导入 bsh 主模块"""
-    import bsh
+    """测试可以导入 js_shbank 主模块"""
+    import js_shbank
 
-    assert hasattr(bsh, "__version__")
-    assert bsh.__version__ == "0.0.2"
+    assert hasattr(js_shbank, "__version__")
+    assert js_shbank.__version__ == "0.0.2"
 
 
 def test_bsh_all_exports():
-    """测试 bsh.__all__ 包含所有导出"""
-    import bsh
+    """测试 js_shbank.__all__ 包含所有导出"""
+    import js_shbank
 
     expected_all = {
         "__version__",
@@ -26,48 +26,48 @@ def test_bsh_all_exports():
         "YieldCalculator",
     }
 
-    assert set(bsh.__all__) == expected_all
+    assert set(js_shbank.__all__) == expected_all
 
 
 def test_bsh_exports_accessible():
     """测试所有导出的成员可以访问"""
-    import bsh
+    import js_shbank
 
-    for name in bsh.__all__:
-        assert hasattr(bsh, name), f"bsh.{name} not found"
+    for name in js_shbank.__all__:
+        assert hasattr(js_shbank, name), f"js_shbank.{name} not found"
 
 
 def test_models_module_imports():
     """测试可以导入 models 模块"""
-    from bsh.models import ProductModel
+    from js_shbank.models import ProductModel
 
     assert ProductModel is not None
 
 
 def test_models_all_exports():
     """测试 models.__all__ 包含 ProductModel"""
-    import bsh.models
+    import js_shbank.models
 
-    assert bsh.models.__all__ == ["ProductModel"]
+    assert js_shbank.models.__all__ == ["ProductModel"]
 
 
 def test_config_module_imports():
     """测试可以导入 config 模块"""
-    from bsh.config import Settings
+    from js_shbank.config import Settings
 
     assert Settings is not None
 
 
 def test_config_all_exports():
     """测试 config.__all__ 包含 Settings"""
-    import bsh.config
+    import js_shbank.config
 
-    assert bsh.config.__all__ == ["Settings"]
+    assert js_shbank.config.__all__ == ["Settings"]
 
 
 def test_scraper_module_imports():
     """测试可以导入 scraper 模块"""
-    from bsh.scraper import ApiClient, Parser
+    from js_shbank.scraper import ApiClient, Parser
 
     assert ApiClient is not None
     assert Parser is not None
@@ -75,14 +75,14 @@ def test_scraper_module_imports():
 
 def test_scraper_all_exports():
     """测试 scraper.__all__ 包含 ApiClient 和 Parser"""
-    import bsh.scraper
+    import js_shbank.scraper
 
-    assert set(bsh.scraper.__all__) == {"ApiClient", "Parser"}
+    assert set(js_shbank.scraper.__all__) == {"ApiClient", "Parser"}
 
 
 def test_repository_module_imports():
     """测试可以导入 repository 模块"""
-    from bsh.repository import BaseRepository, CsvRepository, RepositoryFactory
+    from js_shbank.repository import BaseRepository, CsvRepository, RepositoryFactory
 
     assert BaseRepository is not None
     assert CsvRepository is not None
@@ -91,21 +91,21 @@ def test_repository_module_imports():
 
 def test_repository_all_exports():
     """测试 repository.__all__ 包含所有导出"""
-    import bsh.repository
+    import js_shbank.repository
 
     expected = {"BaseRepository", "CsvRepository", "RepositoryFactory"}
-    assert set(bsh.repository.__all__) == expected
+    assert set(js_shbank.repository.__all__) == expected
 
 
 def test_calculator_module_imports():
     """测试可以导入 calculator 模块"""
-    from bsh.calculator import YieldCalculator
+    from js_shbank.calculator import YieldCalculator
 
     assert YieldCalculator is not None
 
 
 def test_calculator_all_exports():
     """测试 calculator.__all__ 包含 YieldCalculator"""
-    import bsh.calculator
+    import js_shbank.calculator
 
-    assert bsh.calculator.__all__ == ["YieldCalculator"]
+    assert js_shbank.calculator.__all__ == ["YieldCalculator"]

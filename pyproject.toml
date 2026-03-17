@@ -27,8 +27,8 @@ dependencies = [
 ]
 
 [project.scripts]
-shbank-fetch = "bsh.cli:fetch_command"
-shbank-web = "bsh.cli:web_command"
+shbank-fetch = "js_shbank.cli:fetch_command"
+shbank-web = "js_shbank.cli:web_command"
 
 [project.optional-dependencies]
 dev = [

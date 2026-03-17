@@ -1,5 +1,5 @@
 """配置管理模块"""
 
-from bsh.config.settings import Settings
+from js_shbank.config.settings import Settings
 
 __all__ = ["Settings"]

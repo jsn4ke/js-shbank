@@ -54,7 +54,7 @@ pip install -r requirements.txt
 ### 4. 验证安装
 
 ```bash
-python -c "import bsh; print(bsh.__version__)"
+python -c "import js_shbank; print(bsh.__version__)"
 ```
 
 ---
@@ -193,8 +193,8 @@ pytest --cov=src --cov-report=html
 
 ```python
 import pytest
-from bsh.scraper import Parser
-from bsh.models import ProductModel
+from js_shbank.scraper import Parser
+from js_shbank.models import ProductModel
 
 class TestParser:
     def test_parse_product_basic(self):

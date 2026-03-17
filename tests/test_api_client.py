@@ -6,8 +6,8 @@ from unittest.mock import Mock, patch
 import pytest
 from requests.exceptions import RequestException
 
-from bsh.config.settings import Settings
-from bsh.scraper.api_client import ApiClient, FetchParams
+from js_shbank.config.settings import Settings
+from js_shbank.scraper.api_client import ApiClient, FetchParams
 
 
 class TestFetchParams:

@@ -11,15 +11,20 @@
 ### 计划中
 - v0.0.3 文档完善
 
+### 变更
+- 包名从 `bsh` 改为 `js-shbank`（原包名已被 PyPI 占用）
+- 命令名从 `bsh-fetch`/`bsh-web` 改为 `shbank-fetch`/`shbank-web`
+- PyPI 发布地址：https://pypi.org/project/js-shbank/
+
 ---
 
 ## [0.0.2] - 2026-03-16
 
 ### 新增
-- 实现第三方库化功能，可通过 `pip install bsh` 安装
+- 实现第三方库化功能，可通过 `pip install js-shbank` 安装
 - 添加 CLI 命令行工具：
-  - `bsh-fetch`: 获取产品数据
-  - `bsh-web`: 启动 Web 查看界面
+  - `shbank-fetch`: 获取产品数据
+  - `shbank-web`: 启动 Web 查看界面
 - 新增 Streamlit Web 查看界面，支持：
   - 数据统计面板（风险等级分布、币种统计）
   - 侧边栏筛选器（代码、名称、风险等级、币种）
@@ -28,7 +33,7 @@
 - 为产品添加详情页 URL，支持跳转到上海银行官网
 
 ### 修复
-- 修复 `bsh-web` 命令无法启动 Streamlit 的问题
+- 修复 `shbank-web` 命令无法启动 Streamlit 的问题
 - 修复 CSV Repository 追加数据导致的数据重复问题
 - 修正产品详情页 URL 生成规则
 

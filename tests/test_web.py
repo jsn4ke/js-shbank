@@ -2,7 +2,7 @@
 import pandas as pd
 import pytest
 
-from bsh.models.product import ProductModel
+from js_shbank.models.product import ProductModel
 
 
 def test_dataframe_filtering_by_code():

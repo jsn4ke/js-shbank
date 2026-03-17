@@ -3,16 +3,16 @@ import argparse
 import subprocess
 import sys
 
-from bsh.scraper import ApiClient, Parser
-from bsh.repository import RepositoryFactory
-from bsh.config import Settings
+from js_shbank.scraper import ApiClient, Parser
+from js_shbank.repository import RepositoryFactory
+from js_shbank.config import Settings
 
 
 def fetch_command() -> None:
     """获取产品数据并保存到 CSV
 
     使用方法:
-        bsh-fetch --output data/products.csv --page-size 100
+        shbank-fetch --output data/products.csv --page-size 100
     """
     parser = argparse.ArgumentParser(description="获取上海银行理财产品数据")
     parser.add_argument("--output", "-o", help="输出文件路径", default="data/products.csv")
@@ -58,7 +58,7 @@ def web_command() -> None:
     """启动 Web 查看界面
 
     使用方法:
-        bsh-web
+        shbank-web
     """
     print("启动 BSH Web 查看界面...")
     # 使用实际的 Python 文件路径

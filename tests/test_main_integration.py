@@ -1,14 +1,14 @@
 """主流程集成测试"""
 from unittest.mock import Mock, patch
 
-from bsh.config.settings import Settings
+from js_shbank.config.settings import Settings
 
 
 class TestMainIntegration:
     """测试主流程集成"""
 
-    @patch("bsh.scraper.api_client.ApiClient")
-    @patch("bsh.repository.factory.RepositoryFactory")
+    @patch("js_shbank.scraper.api_client.ApiClient")
+    @patch("js_shbank.repository.factory.RepositoryFactory")
     def test_main_flow_fetches_and_saves_products(
         self, mock_repo_factory, mock_api_client_class
     ):
@@ -31,7 +31,7 @@ class TestMainIntegration:
         mock_repo_factory.create_repository.return_value = mock_repo
 
         # Import main after mocking
-        from bsh.main import main
+        from js_shbank.main import main
 
         # Run main
         result = main()
@@ -42,8 +42,8 @@ class TestMainIntegration:
         # Verify save was called
         mock_repo.save_batch.assert_called_once()
 
-    @patch("bsh.scraper.api_client.ApiClient")
-    @patch("bsh.repository.factory.RepositoryFactory")
+    @patch("js_shbank.scraper.api_client.ApiClient")
+    @patch("js_shbank.repository.factory.RepositoryFactory")
     def test_main_flow_handles_api_error(
         self, mock_repo_factory, mock_api_client_class
     ):
@@ -58,7 +58,7 @@ class TestMainIntegration:
         mock_repo_factory.create_repository.return_value = mock_repo
 
         # Import main after mocking
-        from bsh.main import main
+        from js_shbank.main import main
 
         # Run main - should not crash
         result = main()
@@ -66,8 +66,8 @@ class TestMainIntegration:
         # Verify save was NOT called
         mock_repo.save_batch.assert_not_called()
 
-    @patch("bsh.scraper.api_client.ApiClient")
-    @patch("bsh.repository.factory.RepositoryFactory")
+    @patch("js_shbank.scraper.api_client.ApiClient")
+    @patch("js_shbank.repository.factory.RepositoryFactory")
     def test_main_flow_handles_empty_data(
         self, mock_repo_factory, mock_api_client_class
     ):
@@ -84,9 +84,9 @@ class TestMainIntegration:
         # Force reload main module to get fresh mocks
         import importlib
         import sys
-        if "bsh.main" in sys.modules:
-            importlib.reload(sys.modules["bsh.main"])
-        from bsh.main import main
+        if "js_shbank.main" in sys.modules:
+            importlib.reload(sys.modules["js_shbank.main"])
+        from js_shbank.main import main
 
         # Run main
         result = main()
@@ -100,10 +100,10 @@ class TestMainCLI:
 
     def test_main_returns_success_code(self):
         """测试主流程返回成功状态码"""
-        with patch("bsh.scraper.api_client.ApiClient"), patch(
-            "bsh.repository.factory.RepositoryFactory"
+        with patch("js_shbank.scraper.api_client.ApiClient"), patch(
+            "js_shbank.repository.factory.RepositoryFactory"
         ):
-            from bsh.main import main
+            from js_shbank.main import main
 
             result = main()
             assert result == 0
