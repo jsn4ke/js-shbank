@@ -6,15 +6,20 @@
 
 ---
 
-## [Unreleased]
+## [0.0.4] - 2026-03-17
 
-### 计划中
-- v0.0.3 文档完善
+### 修复
+- 修复 `shbank-web` 路径错误：`src/bsh/web/app.py` → `src/js_shbank/web/app.py`
+- 修复 `shbank-fetch` 输出目录不存在的问题，现在自动创建输出目录
 
-### 变更
+---
+
+## [0.0.3] - 2026-03-17
+
+### 发布
+- PyPI 发布：https://pypi.org/project/js-shbank/0.0.3/
 - 包名从 `bsh` 改为 `js-shbank`（原包名已被 PyPI 占用）
 - 命令名从 `bsh-fetch`/`bsh-web` 改为 `shbank-fetch`/`shbank-web`
-- PyPI 发布地址：https://pypi.org/project/js-shbank/
 
 ---
 
